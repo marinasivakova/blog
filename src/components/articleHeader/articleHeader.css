@@ -1,0 +1,64 @@
+.article {
+  background-color: #ffffff;
+  margin: 20px 40px 0 40px;
+  padding: 15px;
+  box-shadow: 0px 4px 12px 0px #00000026;
+}
+
+.article__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.article__header--left {
+  width: 80%;
+}
+
+.article__title-wrapper {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.article__title {
+  color: #1890ff;
+  font-size: 20px;
+  margin: 0 10px 10px 0;
+  padding-bottom: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.article__likes {
+  display: contents;
+}
+
+.article__likes button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 20px;
+}
+
+.article__tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.article__tag {
+  border: 1px solid #00000080;
+  color: #00000080;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  border-radius: 2px;
+  width: fit-content;
+  padding: 3px;
+}
+
+.article__description {
+  font-size: 12px;
+  line-height: 22px;
+  color: #00000080;
+  padding-top: 10px;
+}
