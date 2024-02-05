@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
+
+iframe#webpack-dev-server-client-overlay{display:none!important}
 
 html {
   height: 100%;
@@ -13,7 +17,7 @@ html {
   position: absolute;
   top: 0;
   left: 0;
-  font-family: "Inter UI", sans-serif;
+  font-family: "Inter", sans-serif;
   width: 100%;
   height: 100vh;
   background-color: #ebeef3;

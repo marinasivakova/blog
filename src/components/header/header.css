@@ -12,15 +12,25 @@
   letter-spacing: 0em;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .header-left {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .header-right {
   display: flex;
-  width: 30%;
+  gap: 10px;
   justify-content: space-evenly;
+  align-items: center;
   margin-right: 20px;
+}
+
+.header-right--un-auth {
+  width: 20%;
 }
 
 .blog-title {
@@ -29,7 +39,7 @@
 }
 
 .btn {
-  font-family: "Inter UI", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 18px;
   line-height: 28px;
   letter-spacing: 0em;
@@ -38,9 +48,44 @@
   cursor: pointer;
 }
 
+.btn--signup {
+  padding: 10px 15px;
+}
+
 .btn--green {
   border: 1px solid #52c41a;
   color: #52c41a;
   border-radius: 5px;
+}
+
+.btn--red {
+  border: 1px solid #F5222D;
+  color: #F5222D;
+  border-radius: 5px;
+}
+
+.btn--black {
+  border: 1px solid #000000BF;
+  color: #000000BF;
+  border-radius: 5px;
   padding: 10px 15px;
+}
+
+.profile__img {
+  margin-left: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.btn--profile {
+  display: inline-flex;
+  align-items: center;
+}
+
+.link--article {
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0px;
+  text-align: left;
 }

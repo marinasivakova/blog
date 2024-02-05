@@ -9,3 +9,8 @@
     padding-top: 15px;
     overflow-wrap: anywhere / break-word;
   }
+
+  .btns--editing {
+    display: flex;
+    gap: 10px;
+  }

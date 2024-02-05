@@ -1,0 +1,55 @@
+.form--wide {
+  width: 938px;
+}
+
+.input--text {
+  min-height: 168px;
+}
+
+.input--tag {
+  border: 1px solid #d9d9d9;
+  margin-bottom: 10px;
+}
+
+.input--tag,
+.submit-btn--half {
+  width: 40%;
+}
+
+.tags{
+  display: flex;
+  flex-direction: column;
+}
+
+.tags__tag {
+    display: inline-flex;
+    gap: 10px
+}
+
+.btn--tag {
+  border: 1px solid #f5222d;
+  padding: 5px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+  line-height: 24px;
+  color: #f5222d;
+  height: fit-content;
+}
+
+.btn--tag-blue {
+  border: 1px solid #1890ff;
+  color: #1890ff;
+}
+
+
+.btn--not-visible {
+    display: none;
+}
+
+.input--error {
+  border: 1px solid red;
+}
+
+.input--no-error {
+  border: 1px solid #d9d9d9
+}

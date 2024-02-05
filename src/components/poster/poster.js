@@ -1,7 +1,7 @@
 import './poster.css'
 import { format } from 'date-fns'; 
 
-const OriginalPoster = ({author,date}) => {
+const Poster = ({author,date}) => {
   let updateDate = format(date, 'MMMM,d,y');
     return (<div className="poster">
     <div>
@@ -11,4 +11,4 @@ const OriginalPoster = ({author,date}) => {
     <img className="poster__img" alt="Poster's set profile"src={author.image}/>
   </div>)
 }
-export default OriginalPoster
+export default Poster

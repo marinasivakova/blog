@@ -14,6 +14,12 @@
   width: 80%;
 }
 
+.article__header--right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .article__title-wrapper {
   display: inline-flex;
   align-items: baseline;
@@ -30,6 +36,10 @@
 
 .article__likes {
   display: contents;
+}
+
+.likes--true {
+  color: red;
 }
 
 .article__likes button {
