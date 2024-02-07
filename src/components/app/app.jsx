@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Article from '../../pages/article/article';
-import ArticlesList from '../articlesList/articlesList.jsx';
+import ArticlesList from '../articlesList/articlesList';
 import Header from '../header/header';
 import NewArticle from '../../pages/newArticle/newArticle';
 import ProfilePage from '../../pages/profilePage/profilePage';

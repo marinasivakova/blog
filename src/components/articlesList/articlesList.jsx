@@ -21,8 +21,8 @@ function ArticlesList() {
       dispatch(updateClient(response));
     });
   }, [dispatch]);
-  const jsxListOfArticles = articlesSelector.map((article) => {
-    return <Article props={article} key={article.slug} /> })
+  // eslint-disable-next-line max-len
+  const jsxListOfArticles = articlesSelector.map((article) => <Article props={article} key={article.slug} />);
   return (
     <>
       {jsxListOfArticles}
