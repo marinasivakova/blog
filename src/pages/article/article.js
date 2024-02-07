@@ -10,15 +10,15 @@ import ArticleHeader from "../../components/articleHeader/articleHeader";
 import "./article.css";
 import connectToAPI from "../../client/client";
 import { getPage } from "../../store/clientReducer";
+import Loader from "../../components/loader/loader";
 
 const Article = ({ props }) => {
   let articlesSelector = useSelector((s) => s.client.articles);
   let textSelector = useSelector((s) => s.client.page);
   let dispatch = useDispatch();
-
   let slug = useParams().slug;
-
   let [passingData, setPassingData] = useState(null);
+  let buttonsJsx = null;
 
   useEffect(() => {
     setPassingData(props);
@@ -40,10 +40,9 @@ const Article = ({ props }) => {
       );
     }
   }, [props, slug, articlesSelector, dispatch]);
-  let buttonsJsx = null;
 
   const deleteArticle = () => {
-    connectToAPI("delete-article", { slug: slug }).then((result)=>{
+    connectToAPI("delete-article", { slug: slug }).then((result) => {
       let response = result.response || result;
       if (response.status >= 200 && response.status < 300) {
         message.success("Deleted!");
@@ -52,12 +51,9 @@ const Article = ({ props }) => {
       }
     });
   };
-  const confirm = () => {
-    deleteArticle()
-  };
-  const cancel = () => {
-    message.error("Cancelled!");
-  };
+  const confirm = () => deleteArticle();
+  const cancel = () => message.error("Cancelled!");
+
   if (document.cookie && slug) {
     buttonsJsx = (
       <div className="btns--editing">
@@ -73,7 +69,9 @@ const Article = ({ props }) => {
           okText="Yes"
           cancelText="No"
         >
-          <Button danger className="btn btn--red">Delete</Button>
+          <Button danger className="btn btn--red">
+            Delete
+          </Button>
         </Popconfirm>
       </div>
     );
@@ -91,9 +89,11 @@ const Article = ({ props }) => {
       );
     }
   }
+
   while (!passingData) {
-    return null;
+    return <Loader />;
   }
+
   return (
     <article className="article">
       <ArticleHeader

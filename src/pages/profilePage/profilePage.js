@@ -1,5 +1,5 @@
 import { ErrorMessage } from "@hookform/error-message";
-import "../signUpPage/signUpPage.css";
+import "../forms.css";
 import { useForm } from "react-hook-form";
 import connectToAPI from "../../client/client";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,12 +33,16 @@ const ProfilePage = () => {
           placeholder={userSelector.username}
           defaultValue={userSelector.username}
           type="text"
-          className="input"
+          className={
+            errors?.username?.message
+              ? "input input--error"
+              : " input input--no-error"
+          }
           name="username"
           id="username"
-          required
           {...register("username", {
-            required: true,
+            required: "This is required",
+            validate: (value) => !!value.trim() || "Username is required",
             maxLength: {
               value: 20,
               message: "This username exceeds the maximum length of 20",
@@ -46,39 +50,39 @@ const ProfilePage = () => {
             minLength: { value: 3, message: "This username is too short" },
           })}
         />
-        <ErrorMessage
-          errors={errors}
-          name="username"
-          render={({ messages }) =>
-            messages &&
-            Object.entries(messages).map(([type, message]) => (
-              <p key={type}>{message}</p>
-            ))
-          }
-        />
+        <ErrorMessage errors={errors} name="username" />
         <label htmlFor="email">Email address</label>
         <input
           placeholder={userSelector.email}
           defaultValue={userSelector.email}
           type="email"
           name="email"
-          className="input"
+          className={
+            errors?.email?.message
+              ? "input input--error"
+              : " input input--no-error"
+          }
           id="email"
-          required
           {...register("email", {
-            required: true,
+            required: "This is required",
+            validate: (value) => !!value.trim() || "Email is required",
           })}
         />
+        <ErrorMessage errors={errors} name="email" />
         <label htmlFor="new-password">Password</label>
         <input
           placeholder="New password"
           type="password"
-          className="input"
+          className={
+            errors?.password?.message
+              ? "input input--error"
+              : " input input--no-error"
+          }
           name="new-password"
           id="new-password"
-          required
           {...register("password", {
-            required: "Enter password",
+            required: "Enter/Change password",
+            validate: (value) => !!value.trim() || "Password can't be empty",
             maxLength: {
               value: 40,
               message: "This password exceeds the maximum length of 40",
@@ -86,16 +90,7 @@ const ProfilePage = () => {
             minLength: { value: 6, message: "This password is too short" },
           })}
         />
-        <ErrorMessage
-          errors={errors}
-          name="password"
-          render={({ messages }) =>
-            messages &&
-            Object.entries(messages).map(([type, message]) => (
-              <p key={type}>{message}</p>
-            ))
-          }
-        />
+        <ErrorMessage errors={errors} name="password" />
         <label htmlFor="username">Avatar image(url)</label>
         <input
           placeholder={userSelector.url}
@@ -103,10 +98,17 @@ const ProfilePage = () => {
           type="url"
           name="image"
           id="image"
-          className="input"
-          required
-          {...register("image", { required: "Enter URL link" })}
+          className={
+            errors?.image?.message
+              ? "input input--error"
+              : " input input--no-error"
+          }
+          {...register("image", {
+            required: "Enter URL linking to the profile",
+            validate: (value) => !!value.trim() || "Enter URL linking to the profile",
+          })}
         />
+        <ErrorMessage errors={errors} name="image" />
         <input type="submit" value="Save" className="submit-btn input" />
       </form>
     </div>

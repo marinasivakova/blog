@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ErrorMessage } from "@hookform/error-message";
 
-import "../signUpPage/signUpPage.css";
+import "../forms.css";
 import connectToAPI from "../../client/client";
 import { useForm } from "react-hook-form";
 
@@ -24,7 +24,7 @@ const SignInPage = () => {
         <h2 className="form-title">Sign In</h2>
         <label htmlFor="email">Email address</label>
         <input
-          className="input"
+          className={errors?.email?.message ? "input input--error" : " input input--no-error"}
           placeholder="Email address"
           type="email"
           name="email"
@@ -41,13 +41,14 @@ const SignInPage = () => {
           type="password"
           name="password"
           id="password"
-          className={errors?.password?.message ? "submit-btn input input--error" : "submit-btn input input--no-error"}
+          className={errors?.password?.message ? "input input--error" : " input input--no-error"}
           {...register("password", {
             required: "This is required.",
             validate: (value) => !!value.trim() || "This is required.",
           })}
         />
         <ErrorMessage errors={errors} name="password" />
+        <input type="submit" value="Login" className="submit-btn input" />
         <span className="redirect">
           Don't have an account? <Link to="/sign-up">Sign Up</Link>.
         </span>

@@ -1,3 +1,8 @@
+::placeholder {
+  color: #bfbfbf;
+  opacity: 1;
+}
+
 .form-wrapper {
   display: flex;
   align-items: center;
@@ -24,7 +29,7 @@
   width: 380px;
 }
 
- .input {
+.input {
   font-family: "Roboto", sans-serif;
   height: 40px;
   border-radius: 4px;
@@ -35,9 +40,12 @@
   resize: none;
 }
 
-::placeholder {
-  color: #bfbfbf;
-  opacity: 1;
+.input--error {
+  border: 1px solid red;
+}
+
+.input--no-error {
+  border: 1px solid #d9d9d9
 }
 
 .separator {
@@ -67,7 +75,7 @@
   color: #ffffff;
   line-height: 0;
   cursor: pointer;
-  border: 1px solid #d9d9d9
+  border: 1px solid #d9d9d9;
 }
 
 .form-title {

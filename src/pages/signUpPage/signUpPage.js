@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./signUpPage.css";
+import "../forms.css";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import connectToAPI from "../../client/client";
@@ -25,7 +25,7 @@ const SignUpPage = () => {
         <h2 className="form-title">Create new account</h2>
         <label htmlFor="username">Username</label>
         <input
-          className="input"
+          className={errors?.username?.message ? "input input--error" : " input input--no-error"}
           placeholder="Username"
           type="text"
           name="username"
@@ -46,10 +46,10 @@ const SignUpPage = () => {
           type="email"
           name="email"
           id="email"
-          className="input"
+          className={errors?.email?.message ? "input input--error" : " input input--no-error"}
           required
           {...register("email", {
-            required: true,
+            required: "This is required.",
           })}
         />
         <label htmlFor="password">Password</label>
@@ -58,7 +58,7 @@ const SignUpPage = () => {
           type="password"
           name="password"
           id="password"
-          className="input"
+          className={errors?.password?.message ? "input input--error" : " input input--no-error"}
           {...register("password", {
             required: "This is required.",
             maxLength: {
@@ -75,8 +75,9 @@ const SignUpPage = () => {
           type="password"
           name="repeat-password"
           id="repeat-password"
-          className="input"
+          className={errors?.["repeat-password"]?.message ? "input input--error" : " input input--no-error"}
           {...register("repeat-password", {
+            required: "This is required.",
             validate: (value) =>
               value === getValues("password") ||
               "Repeat password should match the password",
