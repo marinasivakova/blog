@@ -1,17 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+/* eslint-disable no-param-reassign */
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { articles: [] , page: false};
+const initialState = { articles: [], page: false };
 
 export const clientSlice = createSlice({
-  name: "client",
+  name: 'client',
   initialState,
   reducers: {
     updateClient: (state, action) => {
       state.articles = [...action.payload];
     },
-    getPage: (state,action) => {
-        state.page = action.payload
-    }
+    getPage: (state, action) => {
+      state.page = action.payload;
+    },
   },
 });
 

@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import React from "react";
-import { Button, message, Popconfirm } from "antd";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { Button, message, Popconfirm } from 'antd';
+import PropTypes from 'prop-types';
 
-import Markdown from "markdown-to-jsx";
+import Markdown from 'markdown-to-jsx';
 
-import ArticleHeader from "../../components/articleHeader/articleHeader";
-import "./article.css";
-import connectToAPI from "../../client/client";
-import { getPage } from "../../store/clientReducer";
-import Loader from "../../components/loader/loader";
+import ArticleHeader from '../../components/articleHeader/articleHeader';
+import './article.css';
+import connectToAPI from '../../client/client';
+import { getPage } from '../../store/clientReducer';
+import Loader from '../../components/loader/loader';
 
-const Article = ({ props }) => {
-  let articlesSelector = useSelector((s) => s.client.articles);
-  let textSelector = useSelector((s) => s.client.page);
-  let dispatch = useDispatch();
-  let slug = useParams().slug;
-  let [passingData, setPassingData] = useState(null);
+function Article({ props }) {
+  const articlesSelector = useSelector((s) => s.client.articles);
+  const textSelector = useSelector((s) => s.client.page);
+  const dispatch = useDispatch();
+  const { slug } = useParams();
+  const [passingData, setPassingData] = useState(null);
   let buttonsJsx = null;
 
   useEffect(() => {
@@ -29,35 +29,33 @@ const Article = ({ props }) => {
     }
     if (!props) {
       if (!articlesSelector.length) {
-        connectToAPI("article", slug).then((response) => {
+        connectToAPI('article', slug).then((response) => {
           setPassingData(response);
         });
       }
       setPassingData(
-        articlesSelector.filter((item) => {
-          return item.slug === slug;
-        })[0]
+        articlesSelector.filter((item) => item.slug === slug)[0],
       );
     }
   }, [props, slug, articlesSelector, dispatch]);
 
   const deleteArticle = () => {
-    connectToAPI("delete-article", { slug: slug }).then((result) => {
-      let response = result.response || result;
+    connectToAPI('delete-article', { slug }).then((result) => {
+      const response = result.response || result;
       if (response.status >= 200 && response.status < 300) {
-        message.success("Deleted!");
+        message.success('Deleted!');
       } else {
-        message.error("Access denied");
+        message.error('Access denied');
       }
     });
   };
   const confirm = () => deleteArticle();
-  const cancel = () => message.error("Cancelled!");
+  const cancel = () => message.error('Cancelled!');
 
   if (document.cookie && slug) {
     buttonsJsx = (
       <div className="btns--editing">
-        <button className="btn btn--green">
+        <button type="button" className="btn btn--green">
           <Link to={`/articles/${slug}/edit`}>Edit</Link>
         </button>
         <Popconfirm
@@ -90,7 +88,7 @@ const Article = ({ props }) => {
     }
   }
 
-  while (!passingData) {
+  if (!passingData) {
     return <Loader />;
   }
 
@@ -110,5 +108,14 @@ const Article = ({ props }) => {
       {text}
     </article>
   );
+}
+
+Article.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  props: PropTypes.object,
+};
+
+Article.defaultProps = {
+  props: null,
 };
 export default Article;

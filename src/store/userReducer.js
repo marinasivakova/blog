@@ -1,16 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+/* eslint-disable no-param-reassign */
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = { email: null, url: null, username: null };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     updateUser: (state, action) => {
       state.email = action.payload.email;
-      state.url= action.payload.image || action.payload.url;
-      state.username= action.payload.username;
-    }
+      state.url = action.payload.image || action.payload.url;
+      state.username = action.payload.username;
+    },
   },
 });
 

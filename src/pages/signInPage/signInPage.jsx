@@ -1,0 +1,78 @@
+/* eslint-disable react/jsx-props-no-spreading */
+import { Link, useNavigate } from 'react-router-dom';
+import { ErrorMessage } from '@hookform/error-message';
+import React from 'react';
+
+import '../forms.css';
+import { useForm } from 'react-hook-form';
+import connectToAPI from '../../client/client';
+
+function SignInPage() {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => connectToAPI('login', data).then((r) => {
+    if (!r.token) {
+      return null;
+    }
+    let date = new Date(Date.now() + 86400e3);
+    date = date.toUTCString();
+    document.cookie = `auth=${r.token}; expires=" + ${date};`;
+    return navigate('/profile');
+  });
+  return (
+    <div className="form-wrapper">
+      <form className="form form--regular" onSubmit={handleSubmit(onSubmit)}>
+        <h2 className="form-title">Sign In</h2>
+        <label htmlFor="email">
+          Email address
+          <input
+            className={
+              errors?.email?.message
+                ? 'input input--error'
+                : ' input input--no-error'
+            }
+            placeholder="Email address"
+            type="email"
+            name="email"
+            id="email"
+            {...register('email', {
+              required: 'This is required.',
+              validate: (value) => !!value.trim() || 'This is required.',
+            })}
+          />
+        </label>
+        <ErrorMessage errors={errors} name="email" />
+        <label htmlFor="password">
+          Password
+          <input
+            placeholder="Password"
+            type="password"
+            name="password"
+            id="password"
+            className={
+              errors?.password?.message
+                ? 'input input--error'
+                : ' input input--no-error'
+            }
+            {...register('password', {
+              required: 'This is required.',
+              validate: (value) => !!value.trim() || 'This is required.',
+            })}
+          />
+        </label>
+        <ErrorMessage errors={errors} name="password" />
+        <input type="submit" value="Login" className="submit-btn input" />
+        <span className="redirect">
+          Do not have an account?
+          <Link to="/sign-up">Sign Up</Link>
+        </span>
+      </form>
+    </div>
+  );
+}
+
+export default SignInPage;

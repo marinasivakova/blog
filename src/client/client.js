@@ -1,48 +1,36 @@
-import axios from "axios";
+import axios from 'axios';
 
-const connectToAPI = async function (type, argument) {
-  const url = "https://blog.kata.academy/api/";
+export default async function connectToAPI(type, argument) {
+  const url = 'https://blog.kata.academy/api/';
   let auth;
   if (document.cookie) {
-    auth = "Token " + document.cookie.match(/=(.*)/gm).toString().slice(1);
+    auth = `Token ${document.cookie.match(/=(.*)/gm).toString().slice(1)}`;
   }
   switch (type) {
-    case "articles":
+    case 'articles':
       if (argument) {
-        return axios(url + `articles?limit=5&&offset=${argument * 5}`, {
+        return axios(`${url}articles?limit=5&&offset=${argument * 5}`, {
           headers: { Authorization: auth },
         })
-          .then((r) => {
-            return r.data.articles;
-          })
-          .catch((err) => {
-            return err;
-          });
-      } else {
-        return axios(url + "articles?limit=5", {
-          headers: { Authorization: auth },
-        })
-          .then((r) => {
-            return r.data.articles;
-          })
-          .catch((err) => {
-            return err;
-          });
+          .then((r) => r.data.articles)
+          .catch((err) => err);
       }
-    case "article":
-      return axios(url + `/articles/${argument}`, {
+      return axios(`${url}articles?limit=5`, {
         headers: { Authorization: auth },
       })
-        .then((r) => {
-          return r.data.article;
-        })
-        .catch((err) => {
-          return err;
-        });
-    case "new-article":
+        .then((r) => r.data.articles)
+        .catch((err) => err);
+
+    case 'article':
+      return axios(`${url}/articles/${argument}`, {
+        headers: { Authorization: auth },
+      })
+        .then((r) => r.data.article)
+        .catch((err) => err);
+    case 'new-article':
       return axios
         .post(
-          url + "articles",
+          `${url}articles`,
           {
             article: {
               title: argument.title,
@@ -54,17 +42,15 @@ const connectToAPI = async function (type, argument) {
           {
             headers: {
               Authorization: auth,
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
-          }
+          },
         )
-        .catch((err) => {
-          return err;
-        });
-    case "update-article":
+        .catch((err) => err);
+    case 'update-article':
       return axios
         .put(
-          url + "articles/" + argument.slug,
+          `${url}articles/${argument.slug}`,
           {
             article: {
               title: argument.title,
@@ -76,66 +62,48 @@ const connectToAPI = async function (type, argument) {
           {
             headers: {
               Authorization: auth,
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
-          }
+          },
         )
-        .catch((err) => {
-          return err;
-        });
-    case "delete-article":
+        .catch((err) => err);
+    case 'delete-article':
       return axios
-        .delete(url + "articles/" + argument.slug, {
+        .delete(`${url}articles/${argument.slug}`, {
           headers: {
             Authorization: auth,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         })
-        .then((r) => {
-          return r;
-        })
-        .catch((err) => {
-          return err;
-        });
-    case "new-user":
+        .then((r) => r)
+        .catch((err) => err);
+    case 'new-user':
       return axios
-        .post(url + "users", {
+        .post(`${url}users`, {
           user: {
             username: argument.username,
             email: argument.email,
             password: argument.password,
           },
         })
-        .then((r) => {
-          return r.data.user;
-        })
-        .catch((err) => {
-          return err;
-        });
-    case "login":
+        .then((r) => r.data.user)
+        .catch((err) => err);
+    case 'login':
       return axios
-        .post(url + "users/login", {
+        .post(`${url}users/login`, {
           user: { email: argument.email, password: argument.password },
         })
-        .then((r) => {
-          return r.data.user;
-        })
-        .catch((err) => {
-          return err;
-        });
-    case "user":
+        .then((r) => r.data.user)
+        .catch((err) => err);
+    case 'user':
       return axios
-        .get(url + "user", { headers: { Authorization: auth } })
-        .then((r) => {
-          return r.data.user;
-        })
-        .catch((err) => {
-          return err;
-        });
-    case "update-user":
+        .get(`${url}user`, { headers: { Authorization: auth } })
+        .then((r) => r.data.user)
+        .catch((err) => err);
+    case 'update-user':
       return axios
         .put(
-          url + "user",
+          `${url}user`,
           {
             user: {
               username: argument.username,
@@ -147,32 +115,23 @@ const connectToAPI = async function (type, argument) {
           {
             headers: {
               Authorization: auth,
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
-          }
+          },
         )
-        .then((r) => {
-          return r.data.user;
-        })
-        .catch((err) => {
-          return err;
-        });
-    case "like":
-      return axios.post(url + "articles/" + argument.slug + "/favorite", null,{
-        headers: { Authorization: auth},
+        .then((r) => r.data.user)
+        .catch((err) => err);
+    case 'like':
+      return axios.post(`${url}articles/${argument.slug}/favorite`, null, {
+        headers: { Authorization: auth },
       });
-    case "dislike":
-      return axios.delete(url + "articles/" + argument.slug + "/favorite", {
+    case 'dislike':
+      return axios.delete(`${url}articles/${argument.slug}/favorite`, {
         headers: { Authorization: auth },
       });
     default:
-      return axios(url + "articles")
-        .then((r) => {
-          return r.data.articles;
-        })
-        .catch((err) => {
-          return err;
-        });
+      return axios(`${url}articles`)
+        .then((r) => r.data.articles)
+        .catch((err) => err);
   }
-};
-export default connectToAPI;
+}
