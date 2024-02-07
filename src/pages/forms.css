@@ -29,6 +29,12 @@
   width: 380px;
 }
 
+.label {
+  display: flex;
+  align-items: baseline;
+  flex-direction: column;
+}
+
 .input {
   font-family: "Roboto", sans-serif;
   height: 40px;
@@ -38,6 +44,7 @@
   font-size: 16px;
   line-height: 24px;
   resize: none;
+  width: 100%
 }
 
 .input--error {

@@ -23,7 +23,7 @@ function SignUpPage() {
     <div className="form-wrapper">
       <form className="form form--regular" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="form-title">Create new account</h2>
-        <label htmlFor="username">
+        <label htmlFor="username" className="label">
           Username
           <input
             className={
@@ -46,7 +46,7 @@ function SignUpPage() {
           />
         </label>
         <ErrorMessage errors={errors} name="username" />
-        <label htmlFor="email">
+        <label htmlFor="email" className="label">
           Email address
           <input
             placeholder="Email address"
@@ -64,7 +64,7 @@ function SignUpPage() {
             })}
           />
         </label>
-        <label htmlFor="password">
+        <label htmlFor="password" className="label">
           Password
           <input
             placeholder="Password"
@@ -87,7 +87,7 @@ function SignUpPage() {
           />
         </label>
         <ErrorMessage errors={errors} name="password" />
-        <label htmlFor="repeat-password">
+        <label htmlFor="repeat-password" className="label">
           Repeat password
           <input
             placeholder="Repeat password"
