@@ -2,6 +2,7 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState, React } from 'react';
 import PropTypes from 'prop-types';
+import { message } from 'antd';
 import OriginalPoster from '../poster/poster';
 import './articleHeader.css';
 import connectToAPI from '../../client/client';
@@ -35,6 +36,9 @@ function ArticleHeader({
     }
   }, [path, navigate]);
   const toggleLike = () => {
+    if (!document.cookie) {
+      return message.error('Not authorized!');
+    }
     if (toggleFavorite) {
       connectToAPI('dislike', { slug });
       setToggledLikeAmount((prevLikes) => prevLikes - 1);
@@ -43,6 +47,7 @@ function ArticleHeader({
       setToggledLikeAmount((prevLikes) => prevLikes + 1);
     }
     setToggleFavorite((prevToggleFavorite) => !prevToggleFavorite);
+    return null;
   };
   return (
     <div className="article__header">
