@@ -32,7 +32,6 @@ function Article({ props }) {
     if (!props) {
       if (!articlesSelector.length) {
         connectToAPI('article', slug).then((response) => {
-          console.log(response);
           setPassingData(response);
         });
       }
