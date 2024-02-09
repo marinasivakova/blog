@@ -7,6 +7,7 @@ const initialState = {
   body: null,
   title: null,
   liked: false,
+  singularTag: '',
 };
 
 export const postSlice = createSlice({
@@ -28,12 +29,21 @@ export const postSlice = createSlice({
     },
     removeTag: (state, action) => {
       if (action.payload.tag) {
-        state.tagList = state.tagList.filter((tag) => tag !== action.payload.tag);
+        state.tagList = state.tagList.filter(
+          (tag) => tag !== action.payload.tag,
+        );
+      }
+    },
+    updateSingularTag: (state, action) => {
+      if (action.payload.tag) {
+        state.singularTag = action.payload.tag;
       }
     },
   },
 });
 
-export const { updatePost, updateTag, removeTag } = postSlice.actions;
+export const {
+  updatePost, updateTag, removeTag, updateSingularTag,
+} = postSlice.actions;
 
 export default postSlice.reducer;

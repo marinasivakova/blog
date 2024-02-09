@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button, message, Popconfirm } from 'antd';
 import PropTypes from 'prop-types';
 
@@ -15,7 +15,9 @@ import Loader from '../../components/loader/loader';
 function Article({ props }) {
   const articlesSelector = useSelector((s) => s.client.articles);
   const textSelector = useSelector((s) => s.client.page);
+  const loggedUser = useSelector((s) => s.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { slug } = useParams();
   const [passingData, setPassingData] = useState(null);
   let buttonsJsx = null;
@@ -33,9 +35,7 @@ function Article({ props }) {
           setPassingData(response);
         });
       }
-      setPassingData(
-        articlesSelector.filter((item) => item.slug === slug)[0],
-      );
+      setPassingData(articlesSelector.filter((item) => item.slug === slug)[0]);
     }
   }, [props, slug, articlesSelector, dispatch]);
 
@@ -44,6 +44,7 @@ function Article({ props }) {
       const response = result.response || result;
       if (response.status >= 200 && response.status < 300) {
         message.success('Deleted!');
+        navigate('/');
       } else {
         message.error('Access denied');
       }
@@ -51,12 +52,19 @@ function Article({ props }) {
   };
   const confirm = () => deleteArticle();
   const cancel = () => message.error('Cancelled!');
+  const onEdit = () => {
+    if (passingData.author.username !== loggedUser.username) {
+      message.error('Access denied');
+    } else {
+      navigate(`/articles/${slug}/edit`);
+    }
+  };
 
   if (document.cookie && slug) {
     buttonsJsx = (
       <div className="btns--editing">
-        <button type="button" className="btn btn--green">
-          <Link to={`/articles/${slug}/edit`}>Edit</Link>
+        <button type="button" className="btn btn--green" onClick={onEdit}>
+          Edit
         </button>
         <Popconfirm
           placement="right"
@@ -81,9 +89,9 @@ function Article({ props }) {
       text = null;
     } else {
       text = (
-        <section className="article__text">
+        <p className="article__text">
           <Markdown>{passingData.body}</Markdown>
-        </section>
+        </p>
       );
     }
   }

@@ -22,12 +22,14 @@ function ArticlesList() {
     });
   }, [dispatch]);
   // eslint-disable-next-line max-len
-  const jsxListOfArticles = articlesSelector.map((article) => <Article props={article} key={article.slug} />);
+  const jsxListOfArticles = articlesSelector.map((article) => (
+    <Article props={article} key={article.slug} />
+  ));
   return (
     <>
       {jsxListOfArticles}
       {' '}
-      <Pagination onChange={processPageChange} total={500} />
+      <Pagination onChange={processPageChange} showSizeChanger={false} total={500} />
       <Outlet />
     </>
   );

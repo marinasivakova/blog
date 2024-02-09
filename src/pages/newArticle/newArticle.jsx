@@ -26,7 +26,10 @@ function NewArticle() {
     } else {
       dispatch(
         updatePost({
-          tagList: [], description: null, body: null, title: null,
+          tagList: [],
+          description: null,
+          body: null,
+          title: null,
         }),
       );
     }
@@ -40,19 +43,22 @@ function NewArticle() {
     return <Navigate to="/sign-in" replace />;
   }
   const onSubmit = (data) => {
-    dispatch(updatePost({ ...data, tagList: [...postSelector.tagList] }));
-    if (slug) {
-      connectToAPI('update-article', {
-        ...data,
-        tagList: [...postSelector.tagList],
-        slug,
-      });
+    const tagList = [...postSelector.tagList];
+    if (postSelector.singularTag !== '') {
+      tagList.push(postSelector.singularTag);
     }
-    connectToAPI('new-article', {
+    dispatch(updatePost({ ...data, tagList }));
+    if (slug) {
+      return connectToAPI('update-article', {
+        ...data,
+        tagList,
+        slug,
+      }).then(() => navigate('/'));
+    }
+    return connectToAPI('new-article', {
       ...data,
-      tagList: [...postSelector.tagList],
-    });
-    navigate('/');
+      tagList,
+    }).then(() => navigate('/'));
   };
   return (
     <div className="form-wrapper">
@@ -79,7 +85,7 @@ function NewArticle() {
             })}
           />
         </label>
-        <ErrorMessage errors={errors} name="title" />
+        <ErrorMessage className="error-message" as="span" errors={errors} name="title" />
         <label htmlFor="description">
           Short description
           <input
@@ -99,7 +105,7 @@ function NewArticle() {
             })}
           />
         </label>
-        <ErrorMessage errors={errors} name="description" />
+        <ErrorMessage className="error-message" as="span" errors={errors} name="description" />
         <label htmlFor="body">
           Text
           <textarea
@@ -118,7 +124,7 @@ function NewArticle() {
             })}
           />
         </label>
-        <ErrorMessage errors={errors} name="body" />
+        <ErrorMessage className="error-message" as="span" errors={errors} name="body" />
         <span>Tags</span>
         <TagList tagList={postSelector.tagList} />
         <input

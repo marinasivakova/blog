@@ -2,6 +2,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage } from '@hookform/error-message';
 import React from 'react';
+import { message } from 'antd';
 
 import '../forms.css';
 import { useForm } from 'react-hook-form';
@@ -16,11 +17,11 @@ function SignInPage() {
   } = useForm();
   const onSubmit = (data) => connectToAPI('login', data).then((r) => {
     if (!r.token) {
-      return null;
+      return message.error('Invalid credentials!');
     }
     let date = new Date(Date.now() + 86400e3);
     date = date.toUTCString();
-    document.cookie = `auth=${r.token}; expires=" + ${date};`;
+    document.cookie = `auth=${r.token}; expires=" + ${date}; SameSite=None; secure`;
     return navigate('/profile');
   });
   return (
@@ -45,7 +46,7 @@ function SignInPage() {
             })}
           />
         </label>
-        <ErrorMessage errors={errors} name="email" />
+        <ErrorMessage className="error-message" as="span" errors={errors} name="email" />
         <label htmlFor="password">
           Password
           <input
@@ -64,7 +65,7 @@ function SignInPage() {
             })}
           />
         </label>
-        <ErrorMessage errors={errors} name="password" />
+        <ErrorMessage className="error-message" as="span" errors={errors} name="password" />
         <input type="submit" value="Login" className="submit-btn input" />
         <span className="redirect">
           Do not have an account?

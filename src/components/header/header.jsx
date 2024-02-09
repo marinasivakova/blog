@@ -10,12 +10,12 @@ function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logOut = () => {
-    dispatch(updateUser({ username: null, url: null, email: null }));
-    document.cookie += '=; Max-Age=-99999999;';
+    dispatch(updateUser({ username: null, url: 'https://placehold.co/450', email: null }));
+    document.cookie += '=; Max-Age=-99999999; SameSite=None; secure';
     navigate('/sign-in');
   };
   if (document.cookie) {
-    if (!userSelector.url) {
+    if (!userSelector.username) {
       connectToAPI('user').then((user) => {
         dispatch(
           updateUser({

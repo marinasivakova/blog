@@ -23,9 +23,9 @@ function ArticleHeader({
   const jsxTags = tags.map((tag, id) => {
     const key = tag + id;
     return (
-      <div className="article__tag" key={key}>
+      <li className="article__tag" key={key}>
         {tag}
-      </div>
+      </li>
     );
   });
   const path = useParams();
@@ -67,8 +67,8 @@ function ArticleHeader({
             <span>{toggledLikeAmount}</span>
           </div>
         </div>
-        <div className="article__tags">{jsxTags}</div>
-        <div className="article__description">{description}</div>
+        <ul className="article__tags">{jsxTags}</ul>
+        <p className="article__description">{description}</p>
       </div>
       <div className="article__header--right">
         <OriginalPoster author={author} date={date} />

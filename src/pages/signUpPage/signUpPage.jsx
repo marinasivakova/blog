@@ -1,10 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
+import { message } from 'antd';
+
 import '../forms.css';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import connectToAPI from '../../client/client';
+import errorToMessage from '../../utils/errorToMessage';
 
 function SignUpPage() {
   const {
@@ -13,10 +16,16 @@ function SignUpPage() {
     handleSubmit,
     getValues,
   } = useForm();
+  const navigate = useNavigate();
   const onSubmit = (data) => connectToAPI('new-user', data).then((r) => {
+    if (!r.token) {
+      return errorToMessage(r.response.data.errors);
+    }
     let date = new Date(Date.now() + 86400e3);
     date = date.toUTCString();
-    document.cookie = `auth=${r.token}; expires=" + ${date};`;
+    document.cookie = `auth=${r.token}; expires=" + ${date}; SameSite=None; secure`;
+    message.success('Account created');
+    return navigate('/profile');
   });
 
   return (
@@ -45,7 +54,7 @@ function SignUpPage() {
             })}
           />
         </label>
-        <ErrorMessage errors={errors} name="username" />
+        <ErrorMessage className="error-message" as="span" errors={errors} name="username" />
         <label htmlFor="email" className="label">
           Email address
           <input
@@ -86,7 +95,7 @@ function SignUpPage() {
             })}
           />
         </label>
-        <ErrorMessage errors={errors} name="password" />
+        <ErrorMessage className="error-message" as="span" errors={errors} name="password" />
         <label htmlFor="repeat-password" className="label">
           Repeat password
           <input
@@ -106,7 +115,7 @@ function SignUpPage() {
             })}
           />
         </label>
-        <ErrorMessage errors={errors} name="repeat-password" />
+        <ErrorMessage className="error-message" as="span" errors={errors} name="repeat-password" />
         <hr className="separator" />
         <label htmlFor="privacy" className="checkbox-text">
           <input

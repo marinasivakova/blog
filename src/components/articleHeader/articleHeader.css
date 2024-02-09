@@ -50,6 +50,9 @@
 }
 
 .article__tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   gap: 5px;
   flex-wrap: wrap;

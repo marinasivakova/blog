@@ -1,11 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { ErrorMessage } from '@hookform/error-message';
+import { message } from 'antd';
 import '../forms.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, React } from 'react';
 import connectToAPI from '../../client/client';
 import { updateUser } from '../../store/userReducer';
+import errorToMessage from '../../utils/errorToMessage';
+import testUrlValidity from '../../utils/testUrlValidity';
 
 function ProfilePage() {
   const {
@@ -17,8 +20,18 @@ function ProfilePage() {
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    dispatch(updateUser(data));
-    connectToAPI('update-user', data);
+    connectToAPI('update-user', data).then((r) => {
+      if (!r.token) {
+        return errorToMessage(r.response.data.errors);
+      }
+      return testUrlValidity(data.image).then((resolve) => {
+        if (resolve) {
+          dispatch(updateUser(data));
+          return message.success('Updated profile');
+        }
+        return message.error('Invalid image url');
+      });
+    });
   };
   useEffect(() => {
     connectToAPI('user').then((user) => {
@@ -53,7 +66,7 @@ function ProfilePage() {
             })}
           />
         </label>
-        <ErrorMessage errors={errors} name="username" />
+        <ErrorMessage className="error-message" as="span" errors={errors} name="username" />
         <label htmlFor="email">
           Email address
           <input
@@ -73,7 +86,7 @@ function ProfilePage() {
             })}
           />
         </label>
-        <ErrorMessage errors={errors} name="email" />
+        <ErrorMessage className="error-message" as="span" errors={errors} name="email" />
         <label htmlFor="new-password">
           Password
           <input
@@ -97,7 +110,7 @@ function ProfilePage() {
             })}
           />
         </label>
-        <ErrorMessage errors={errors} name="password" />
+        <ErrorMessage className="error-message" as="span" errors={errors} name="password" />
         <label htmlFor="username">
           Avatar image(url)
           <input
@@ -117,7 +130,7 @@ function ProfilePage() {
             })}
           />
         </label>
-        <ErrorMessage errors={errors} name="image" />
+        <ErrorMessage className="error-message" as="span" errors={errors} name="image" />
         <input type="submit" value="Save" className="submit-btn input" />
       </form>
     </div>
