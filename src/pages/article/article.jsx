@@ -32,6 +32,7 @@ function Article({ props }) {
     if (!props) {
       if (!articlesSelector.length) {
         connectToAPI('article', slug).then((response) => {
+          console.log(response);
           setPassingData(response);
         });
       }
@@ -90,7 +91,7 @@ function Article({ props }) {
     } else {
       text = (
         <p className="article__text">
-          <Markdown>{passingData.body}</Markdown>
+          <Markdown>{passingData.body ? passingData.body : '' }</Markdown>
         </p>
       );
     }
