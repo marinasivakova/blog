@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import './newArticle.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, React } from 'react';
 import { ErrorMessage } from '@hookform/error-message';
-import TagList from '../../components/tagList/tagList';
-import { updatePost } from '../../store/postReducer';
-import connectToAPI from '../../client/client';
-import { updateUser } from '../../store/userReducer';
+
+import './newArticle.css';
+import TagList from 'components/tagList';
+import connectToAPI from 'client/client';
+import { updateUser } from 'store/userReducer';
+import { updatePost, updateSingularTag } from 'store/postReducer';
 
 function NewArticle() {
   const navigate = useNavigate();
@@ -46,8 +47,8 @@ function NewArticle() {
     const tagList = [...postSelector.tagList];
     if (postSelector.singularTag !== '') {
       tagList.push(postSelector.singularTag);
+      dispatch(updateSingularTag({ tag: '' }));
     }
-    dispatch(updatePost({ ...data, tagList }));
     if (slug) {
       return connectToAPI('update-article', {
         ...data,
@@ -62,7 +63,7 @@ function NewArticle() {
   };
   return (
     <div className="form-wrapper">
-      <form className="form form--wide" onSubmit={handleSubmit(onSubmit)}>
+      <form className="form form--wide form--centered" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="form-title">
           {slug ? 'Edit article' : 'Create new article'}
         </h2>

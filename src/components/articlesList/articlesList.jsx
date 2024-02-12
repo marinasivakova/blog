@@ -1,12 +1,14 @@
-import '../../pages/article/article.css';
-import './articlesList.css';
 import React, { useEffect } from 'react';
 import { Pagination } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-import connectToAPI from '../../client/client';
-import { updateClient } from '../../store/clientReducer';
+
+import connectToAPI from 'client/client';
+import { updateClient } from 'store/clientReducer';
+
 import Article from '../../pages/article/article';
+import '../../pages/article/article.css';
+import './articlesList.css';
 
 function ArticlesList() {
   const articlesSelector = useSelector((s) => s.client.articles);

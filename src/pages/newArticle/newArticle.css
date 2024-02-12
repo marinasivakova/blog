@@ -45,15 +45,3 @@
 .btn--not-visible {
   display: none;
 }
-
-.input--error {
-  border: 1px solid red;
-}
-
-.input--no-error {
-  border: 1px solid #d9d9d9;
-}
-
-.error-message {
-  color: red;
-}

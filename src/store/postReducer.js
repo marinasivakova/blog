@@ -35,8 +35,10 @@ export const postSlice = createSlice({
       }
     },
     updateSingularTag: (state, action) => {
-      if (action.payload.tag) {
+      if (action.payload.tag !== '' && action.payload.tag) {
         state.singularTag = action.payload.tag;
+      } else {
+        state.singularTag = '';
       }
     },
   },

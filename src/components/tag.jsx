@@ -1,14 +1,12 @@
 import { useRef, React } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateSingularTag, updateTag } from '../../store/postReducer';
+import { updateSingularTag, updateTag } from 'store/postReducer';
 
 function Tag() {
   const ref = useRef(null);
   const dispatch = useDispatch();
   const onChange = () => {
-    if (ref.current.value.trim()) {
-      dispatch(updateSingularTag({ tag: ref.current.value }));
-    }
+    dispatch(updateSingularTag({ tag: ref.current.value.trim() }));
   };
   const addTag = () => {
     if (ref.current.value.trim()) {

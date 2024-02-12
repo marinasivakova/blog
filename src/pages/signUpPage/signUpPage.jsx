@@ -2,12 +2,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 import { message } from 'antd';
-
-import '../forms.css';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import connectToAPI from '../../client/client';
-import errorToMessage from '../../utils/errorToMessage';
+
+import '../forms.css';
+import connectToAPI from 'client/client';
+import errorToMessage from 'utils/errorToMessage';
 
 function SignUpPage() {
   const {
@@ -30,7 +30,7 @@ function SignUpPage() {
 
   return (
     <div className="form-wrapper">
-      <form className="form form--regular" onSubmit={handleSubmit(onSubmit)}>
+      <form className="form form--regular form--centered" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="form-title">Create new account</h2>
         <label htmlFor="username" className="label">
           Username

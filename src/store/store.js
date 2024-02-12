@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import clientReducer from './clientReducer';
-import userReducer from './userReducer';
-import postReducer from './postReducer';
+import clientReducer from 'store/clientReducer';
+import userReducer from 'store/userReducer';
+import postReducer from 'store/postReducer';
 
 const store = configureStore({
   reducer: {

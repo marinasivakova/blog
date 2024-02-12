@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
-import './header.css';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-import { updateUser } from '../../store/userReducer';
-import connectToAPI from '../../client/client';
+
+import './header.css';
+import { updateUser } from 'store/userReducer';
+import connectToAPI from 'client/client';
 
 function Header() {
   const userSelector = useSelector((s) => s.user);
@@ -39,7 +40,7 @@ function Header() {
               Create article
             </Link>
           </button>
-          <button type="button" className="btn">
+          <button type="button" className="btn btn--borderless">
             <Link to="/profile" className="btn--profile">
               {userSelector.username}
               <img
@@ -64,7 +65,7 @@ function Header() {
         </Link>
       </div>
       <div className="header-right">
-        <button type="button" className="btn">
+        <button type="button" className="btn btn--borderless">
           <Link to="/sign-in">Sign In</Link>
         </button>
         <button type="button" className="btn btn--green btn--signup">

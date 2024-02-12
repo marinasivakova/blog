@@ -3,9 +3,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState, React } from 'react';
 import PropTypes from 'prop-types';
 import { message } from 'antd';
-import OriginalPoster from '../poster/poster';
+
+import OriginalPoster from 'components/poster/poster';
+import connectToAPI from 'client/client';
 import './articleHeader.css';
-import connectToAPI from '../../client/client';
 
 function ArticleHeader({
   description,

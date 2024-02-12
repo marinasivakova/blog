@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { ErrorMessage } from '@hookform/error-message';
 import { message } from 'antd';
-import '../forms.css';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, React } from 'react';
-import connectToAPI from '../../client/client';
-import { updateUser } from '../../store/userReducer';
-import errorToMessage from '../../utils/errorToMessage';
-import testUrlValidity from '../../utils/testUrlValidity';
+
+import '../forms.css';
+import connectToAPI from 'client/client';
+import { updateUser } from 'store/userReducer';
+import errorToMessage from 'utils/errorToMessage';
+import testUrlValidity from 'utils/testUrlValidity';
 
 function ProfilePage() {
   const {
@@ -40,7 +41,7 @@ function ProfilePage() {
   }, [dispatch]);
   return (
     <div className="form-wrapper">
-      <form className="form form--regular" onSubmit={handleSubmit(onSubmit)}>
+      <form className="form form--regular  form--centered" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="form-title">Edit Profile</h2>
         <label htmlFor="username">
           Username

@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, message, Popconfirm } from 'antd';
 import PropTypes from 'prop-types';
-
 import Markdown from 'markdown-to-jsx';
 
-import ArticleHeader from '../../components/articleHeader/articleHeader';
 import './article.css';
-import connectToAPI from '../../client/client';
-import { getPage } from '../../store/clientReducer';
-import Loader from '../../components/loader/loader';
+import connectToAPI from 'client/client';
+import { getPage } from 'store/clientReducer';
+import Loader from 'components/loader';
+import ArticleHeader from 'components/articleHeader/articleHeader';
 
 function Article({ props }) {
   const articlesSelector = useSelector((s) => s.client.articles);

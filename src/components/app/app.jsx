@@ -1,12 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Article from '../../pages/article/article';
-import ArticlesList from '../articlesList/articlesList';
-import Header from '../header/header';
-import NewArticle from '../../pages/newArticle/newArticle';
-import ProfilePage from '../../pages/profilePage/profilePage';
-import SignInPage from '../../pages/signInPage/signInPage';
-import SignUpPage from '../../pages/signUpPage/signUpPage';
+
+import Article from 'pages/article/article';
+import NewArticle from 'pages/newArticle/newArticle';
+import ProfilePage from 'pages/profilePage/profilePage';
+import SignInPage from 'pages/signInPage/signInPage';
+import SignUpPage from 'pages/signUpPage/signUpPage';
+import ArticlesList from 'components/articlesList/articlesList';
+import Header from 'components/header/header';
+
 import './app.css';
 
 function App() {

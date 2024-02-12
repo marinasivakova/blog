@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ErrorMessage } from '@hookform/error-message';
 import React from 'react';
 import { message } from 'antd';
+import { useForm } from 'react-hook-form';
 
 import '../forms.css';
-import { useForm } from 'react-hook-form';
-import connectToAPI from '../../client/client';
+import connectToAPI from 'client/client';
 
 function SignInPage() {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ function SignInPage() {
   });
   return (
     <div className="form-wrapper">
-      <form className="form form--regular" onSubmit={handleSubmit(onSubmit)}>
+      <form className="form form--regular  form--centered" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="form-title">Sign In</h2>
         <label htmlFor="email">
           Email address

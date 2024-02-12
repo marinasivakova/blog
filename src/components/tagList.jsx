@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import Tag from '../tag/tag';
-import { removeTag } from '../../store/postReducer';
+import Tag from 'components/tag';
+import { removeTag } from 'store/postReducer';
 
 function TagList({ tagList }) {
   let jsxTagList = null;

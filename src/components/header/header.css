@@ -40,7 +40,6 @@ a {
   line-height: 28px;
   letter-spacing: 0em;
   background: none;
-  border: none;
   cursor: pointer;
 }
 
@@ -68,7 +67,6 @@ a {
 }
 
 .profile__img {
-  margin-left: 10px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -77,6 +75,11 @@ a {
 .btn--profile {
   display: inline-flex;
   align-items: center;
+  gap: 10px;
+}
+
+.btn--borderless {
+  border: none;
 }
 
 .link--article {
