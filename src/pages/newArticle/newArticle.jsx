@@ -12,9 +12,21 @@ import { updateUser } from 'store/userReducer';
 import { updatePost, updateSingularTag } from 'store/postReducer';
 
 function NewArticle() {
-  const navigate = useNavigate();
   const { slug } = useParams();
   const postSelector = useSelector((s) => s.post);
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: {
+      title: slug ? postSelector.title : null,
+      description: slug ? postSelector.description : null,
+      body: slug ? postSelector.body : null,
+    },
+  });
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     connectToAPI('user').then((user) => {
@@ -23,6 +35,7 @@ function NewArticle() {
     if (slug) {
       connectToAPI('article', slug).then((response) => {
         dispatch(updatePost(response));
+        reset(response);
       });
     } else {
       dispatch(
@@ -35,11 +48,6 @@ function NewArticle() {
       );
     }
   }, [dispatch, slug]);
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm();
   if (!document.cookie) {
     return <Navigate to="/sign-in" replace />;
   }
@@ -71,7 +79,6 @@ function NewArticle() {
           Title
           <input
             placeholder="Title"
-            defaultValue={slug ? postSelector.title : null}
             type="text"
             name="title"
             id="title"
@@ -91,7 +98,6 @@ function NewArticle() {
           Short description
           <input
             placeholder="Short description"
-            defaultValue={slug ? postSelector.description : null}
             type="text"
             name="description"
             id="description"
@@ -111,7 +117,6 @@ function NewArticle() {
           Text
           <textarea
             placeholder="Text"
-            defaultValue={slug ? postSelector.body : null}
             name="body"
             id="body"
             className={

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, message, Popconfirm } from 'antd';
+import { message, Popconfirm } from 'antd';
 import PropTypes from 'prop-types';
 import Markdown from 'markdown-to-jsx';
 
@@ -74,9 +74,9 @@ function Article({ props }) {
           okText="Yes"
           cancelText="No"
         >
-          <Button danger className="btn btn--red">
+          <button type="button" className="btn btn--red">
             Delete
-          </Button>
+          </button>
         </Popconfirm>
       </div>
     );

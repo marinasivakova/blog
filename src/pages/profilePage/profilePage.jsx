@@ -12,12 +12,19 @@ import errorToMessage from 'utils/errorToMessage';
 import testUrlValidity from 'utils/testUrlValidity';
 
 function ProfilePage() {
+  const userSelector = useSelector((s) => s.user);
   const {
     formState: { errors },
     register,
     handleSubmit,
-  } = useForm();
-  const userSelector = useSelector((s) => s.user);
+    reset,
+  } = useForm({
+    defaultValues: {
+      username: null,
+      email: null,
+      image: null,
+    },
+  });
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
@@ -37,6 +44,7 @@ function ProfilePage() {
   useEffect(() => {
     connectToAPI('user').then((user) => {
       dispatch(updateUser(user));
+      reset(user);
     });
   }, [dispatch]);
   return (
@@ -46,7 +54,7 @@ function ProfilePage() {
         <label htmlFor="username">
           Username
           <input
-            placeholder={userSelector.username}
+            placeholder="Username"
             defaultValue={userSelector.username}
             type="text"
             className={
@@ -71,7 +79,7 @@ function ProfilePage() {
         <label htmlFor="email">
           Email address
           <input
-            placeholder={userSelector.email}
+            placeholder="Email"
             defaultValue={userSelector.email}
             type="email"
             name="email"
@@ -115,7 +123,7 @@ function ProfilePage() {
         <label htmlFor="username">
           Avatar image(url)
           <input
-            placeholder={userSelector.url}
+            placeholder="Image URL"
             defaultValue={userSelector.url}
             type="url"
             name="image"

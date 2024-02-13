@@ -7,13 +7,17 @@ import { useForm } from 'react-hook-form';
 
 import '../forms.css';
 import connectToAPI from 'client/client';
+import { useDispatch } from 'react-redux';
+import { updateUser } from 'store/userReducer';
 
 function SignInPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const onSubmit = (data) => connectToAPI('login', data).then((r) => {
     if (!r.token) {
@@ -22,6 +26,8 @@ function SignInPage() {
     let date = new Date(Date.now() + 86400e3);
     date = date.toUTCString();
     document.cookie = `auth=${r.token}; expires=" + ${date}; SameSite=None; secure`;
+    dispatch(updateUser(data));
+    reset(data);
     return navigate('/profile');
   });
   return (
