@@ -12,6 +12,7 @@ function Tag() {
     if (ref.current.value.trim()) {
       dispatch(updateTag({ tag: ref.current.value }));
       ref.current.value = '';
+      dispatch(updateSingularTag({ tag: ref.current.value }));
     }
   };
   const onDelete = () => {
